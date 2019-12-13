@@ -15,10 +15,49 @@
 	<div id="wrapper">
 		<h1 th:text="${msg}"></h1>
 	</div>
-	<script th:src="@{/static/js/jquery.min.js}"></script>
-	<script th:src="@{/static/js/bootstrap.min.js}"></script>
-	<script>
+	<h2>aabb</h2>
+	<!-- doT -->
+	<h3>1.doT赋值</h3>
+	<div id="interpolation"></div>		
+
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/doT.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+	<!-- doT模板 -->
+	<script id="interpolationtmpl" type="text/x-dot-template">
+<form class="form-inline">
+{{~ it.formDom:item:index}}
+  <div class="form-group">
+    <label for="exampleInputName2">Name</label>
+    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+  </div>
+  {{~}}
+  <button type="submit" class="btn btn-default">Send invitation</button>
+</form>
+	</script>
+	
+<script>
+//doT赋值,格式：{{= }}
+//数据源
+var dataInter = {formDom:[
+	{type: 'hidden', value: '', id: 'elsSubAccount', text: '', name: 'elsSubAccount'},
+	{type: 'hidden', value: '', id: 'elsAccount', text: '', name: 'elsAccount'},
+	{type: 'hidden', value: '', id: 'tempVersion', text: '', name: 'tempVersion'},
+	{type: 'hidden', value: '', id: 'stretegyCode', text: '：', name: 'stretegyCode'},
+	{type: 'hidden', value: '', id: 'flowCode', text: '：', name: 'flowCode'},
+	{type: 'hidden', value: '', id: 'auditStatus', text: '：', name: 'auditStatus'},
+    {type: 'input', value: '', id: 'enquiryNumber', text: '', name: 'enquiryNumber',readonly:true},
+    {type: 'select', value: '', id: 'enquiryType', text: '', name: 'enquiryType',required:true},
+    {type: 'datepicker', value: '', id: 'beginDate' , text: '', name: 'beginDate', required:true},
+    {type: 'search', value:'', id: 'responsible' , text: '', name: 'responsible',readonly:true,btnId: 'queryPrincipalBtn',required:true},
+	{type: 'datepicker', value: '', id: 'quoteEndTime' , text: '', name: 'quoteEndTime',required:true},
+	{type: 'input', value: '', id: 'enquiryDesc', text: '', name: 'enquiryDesc'}
+  ]};
+	var interText = doT.template($("#interpolationtmpl").text());//script模板
+	$("#interpolation").html(interText(dataInter));//填充到div
 </script>
+<!-- doT模板 END -->
+
 
 </body>
 </html>
